@@ -1,5 +1,4 @@
 *.iml
-.gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
@@ -7,3 +6,14 @@
 /build
 /captures
 .externalNativeBuild
+.gradle/4.1/fileChanges/last-build.bin
+.gradle/4.1/fileHashes/fileHashes.bin
+.gradle/4.1/fileHashes/fileHashes.lock
+.gradle/4.1/fileHashes/resourceHashesCache.bin
+.gradle/4.1/taskHistory/fileSnapshots.bin
+.gradle/4.1/taskHistory/taskHistory.bin
+.gradle/4.1/taskHistory/taskHistory.lock
+.gradle/buildOutputCleanup/built.bin
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/cache.properties.lock
+.idea/vcs.xml
