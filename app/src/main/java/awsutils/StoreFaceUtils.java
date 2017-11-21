@@ -20,7 +20,7 @@ public class StoreFaceUtils {
 
     private static String LOG_TAG = StoreFaceUtils.class.getSimpleName();
 
-    public void storeFace(String collectionId, String imageName, String bucket) {
+    public static void storeFace(String collectionId, String imageName, String bucket) {
         final String attributes = "ALL";
         final int limit = 1;
         ObjectMapper objectMapper = new ObjectMapper();

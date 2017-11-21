@@ -3,16 +3,21 @@ package lucas.bicca.amazonrekognition.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 
+import awsutils.DetectLabelsUtils;
 import lucas.bicca.amazonrekognition.R;
 import lucas.bicca.amazonrekognition.databinding.ActivityCaptureBinding;
+import utils.ImageUtils;
 
 public class CaptureActivity extends AppCompatActivity {
 
@@ -40,7 +45,7 @@ public class CaptureActivity extends AppCompatActivity {
     }
 
     private void setImagePath(String imageName, String extension) {
-        imagePath = RESOURCE_DIRECTORY + getPackageName() + "/" + imageName + "." + extension;
+        imagePath = imageName + "." + extension;
     }
 
     private void setCurrentCodeRequest(Intent intent) {
@@ -61,8 +66,15 @@ public class CaptureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == currentCodeRequest) {
             Bundle extras = data.getExtras();
-            byte[] imageByte = (byte[]) extras.get("data");
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] imageByte = stream.toByteArray();
             saveImage(imageByte);
+            File file = ImageUtils.getFile(this, imagePath);
+            if (file != null) {
+                DetectLabelsUtils.detectLabels(file, 10, 77F);
+            }
         }
     }
 

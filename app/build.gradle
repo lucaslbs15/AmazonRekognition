@@ -20,15 +20,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation files('libs/aws-java-sdk-1.11.232.jar')
-    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+    compile 'com.amazonaws:aws-java-sdk:1.11.232'
+    compile 'org.apache.commons:commons-collections4:4.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
+    //compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
 }

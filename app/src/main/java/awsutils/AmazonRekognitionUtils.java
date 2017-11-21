@@ -10,8 +10,8 @@ public class AmazonRekognitionUtils {
     public static AmazonRekognition getAmazonRekognition() {
         return AmazonRekognitionClientBuilder
                 .standard()
-                .withRegion(Regions.US_WEST_2)
-                .withCredentials(new AWSStaticCredentialsProvider(AWSCredentialsUtils.createCredentials("UserAdmin")))
+                .withRegion(Regions.DEFAULT_REGION)
+                .withCredentials(new AWSStaticCredentialsProvider(AWSCredentialsUtils.createCredentials()))
                 .build();
     }
 }
