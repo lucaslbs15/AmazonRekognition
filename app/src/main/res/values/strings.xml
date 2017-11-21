@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Amazon Rekognition</string>
+    <string name="intent_label_key">intent_label_key</string>
 </resources>
