@@ -4,16 +4,13 @@ import android.util.Log;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.model.FaceMatch;
-import com.amazonaws.services.rekognition.model.FaceRecord;
 import com.amazonaws.services.rekognition.model.IndexFacesRequest;
 import com.amazonaws.services.rekognition.model.IndexFacesResult;
 import com.amazonaws.services.rekognition.model.Image;
-import com.amazonaws.services.rekognition.model.S3Object;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageResult;
 import com.amazonaws.services.rekognition.model.SearchFacesRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesResult;
-import com.amazonaws.util.*;
 
 public class SearchUtils {
 
@@ -39,7 +36,7 @@ public class SearchUtils {
             AmazonRekognition amazonRekognition,
             String name, String bucket) {
         IndexFacesRequest req = new IndexFacesRequest()
-                .withImage(getImageUtil(bucket, name))
+                .withImage(ImageUtils.getImageUtil(bucket, name))
                 .withCollectionId(collectionId)
                 .withExternalImageId(name);
         return amazonRekognition.indexFaces(req);
@@ -65,12 +62,5 @@ public class SearchUtils {
                 .withFaceMatchThreshold(threshold)
                 .withMaxFaces(maxFaces);
         return amazonRekognition.searchFaces(searchFacesRequest);
-    }
-
-    private static Image getImageUtil(String bucket, String key) {
-        return new Image()
-                .withS3Object(new S3Object()
-                        .withBucket(bucket)
-                        .withName(key));
     }
 }

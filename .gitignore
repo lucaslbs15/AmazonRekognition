@@ -17,3 +17,9 @@
 .gradle/buildOutputCleanup/cache.properties
 .gradle/buildOutputCleanup/cache.properties.lock
 .idea/vcs.xml
+.gradle/4.1/fileContent/fileContent.lock
+.gradle/4.1/javaCompile/classAnalysis.bin
+.gradle/4.1/javaCompile/jarAnalysis.bin
+.gradle/4.1/javaCompile/javaCompile.lock
+.gradle/4.1/javaCompile/taskHistory.bin
+.gradle/4.1/javaCompile/taskJars.bin
