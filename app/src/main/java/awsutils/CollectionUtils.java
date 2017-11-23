@@ -1,5 +1,6 @@
 package awsutils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -17,24 +18,24 @@ public class CollectionUtils {
 
     private static final String LOG_TAG = CollectionUtils.class.getSimpleName();
 
-    public static void createCollection(String collectionId) {
-        CreateCollectionResult result = callCreateCollection(collectionId, AmazonRekognitionUtils.getAmazonRekognition());
+    public static void createCollection(Context context, String collectionId) {
+        CreateCollectionResult result = callCreateCollection(collectionId, AmazonRekognitionUtils.getAmazonRekognition(context));
         Log.i(LOG_TAG, String.format("CreateCollection, CollectionId: %s, statusCode: %s: " + collectionId, result.getStatusCode()));
     }
 
-    public static void deleteCollection(String collectionId) {
-        DeleteCollectionResult result = callDeleteCollection(collectionId, AmazonRekognitionUtils.getAmazonRekognition());
+    public static void deleteCollection(Context context, String collectionId) {
+        DeleteCollectionResult result = callDeleteCollection(collectionId, AmazonRekognitionUtils.getAmazonRekognition(context));
         Log.i(LOG_TAG, String.format("DeleteCollection, CollectionId: %s, statusCode: %s: " + collectionId, result.getStatusCode()));
     }
 
-    private static List<String> listCollections(int limit, String paginationToken) {
+    private static List<String> listCollections(Context context, int limit, String paginationToken) {
         List<String> resultList = new ArrayList<>();
         ListCollectionsResult result = null;
         do {
             if (result != null) {
                 paginationToken = result.getNextToken();
             }
-            result = callListCollections(paginationToken, limit, AmazonRekognitionUtils.getAmazonRekognition());
+            result = callListCollections(paginationToken, limit, AmazonRekognitionUtils.getAmazonRekognition(context));
             if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(result.getCollectionIds())) {
                 resultList.addAll(result.getCollectionIds());
             }

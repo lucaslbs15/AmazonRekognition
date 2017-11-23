@@ -1,5 +1,6 @@
 package awsutils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -20,11 +21,11 @@ public class StoreFaceUtils {
 
     private static String LOG_TAG = StoreFaceUtils.class.getSimpleName();
 
-    public static void storeFace(String collectionId, String imageName, String bucket) {
+    public static void storeFace(Context context, String collectionId, String imageName, String bucket) {
         final String attributes = "ALL";
         final int limit = 1;
         ObjectMapper objectMapper = new ObjectMapper();
-        AmazonRekognition amazonRekognitionUtils = AmazonRekognitionUtils.getAmazonRekognition();
+        AmazonRekognition amazonRekognitionUtils = AmazonRekognitionUtils.getAmazonRekognition(context);
         Image image = ImageUtils.getImageUtil(bucket, imageName);
         IndexFacesResult indexFacesResult = callIndexFaces(collectionId, imageName, attributes, image, amazonRekognitionUtils);
         List<FaceRecord> faceRecordList = indexFacesResult.getFaceRecords();

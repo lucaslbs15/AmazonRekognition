@@ -26,7 +26,6 @@ android {
 }
 
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -35,5 +34,4 @@ dependencies {
     compile 'com.amazonaws:aws-java-sdk:1.11.232'
     compile 'org.apache.commons:commons-collections4:4.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
-    //compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
 }

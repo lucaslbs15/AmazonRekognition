@@ -1,5 +1,6 @@
 package awsutils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -22,7 +23,7 @@ public class DetectLabelsUtils {
 
     private final static String LOG_TAG = DetectLabelsUtils.class.getSimpleName();
 
-    public static void detectLabels(File file, int maxLabels, float minConfidence) {
+    public static void detectLabels(Context context, File file, int maxLabels, float minConfidence) {
         //maxLabels = 10, minConfidence = 77F
         ByteBuffer imageBytes = getImageBytes(file);
         if (imageBytes == null) return;
@@ -33,7 +34,7 @@ public class DetectLabelsUtils {
                 .withMinConfidence(minConfidence);
 
         try {
-            AmazonRekognition amazonRekognition = AmazonRekognitionUtils.getAmazonRekognition();
+            AmazonRekognition amazonRekognition = AmazonRekognitionUtils.getAmazonRekognition(context);
             DetectLabelsResult result = amazonRekognition.detectLabels(request);
             List<Label> labelList = result.getLabels();
             Log.i(LOG_TAG, String.format("Detected labels for %s", file.getName()));

@@ -73,7 +73,7 @@ public class CaptureActivity extends AppCompatActivity {
             saveImage(imageByte);
             File file = ImageUtils.getFile(this, imagePath);
             if (file != null) {
-                DetectLabelsUtils.detectLabels(file, 10, 77F);
+                DetectLabelsUtils.detectLabels(this, file, 10, 77F);
             }
         }
     }

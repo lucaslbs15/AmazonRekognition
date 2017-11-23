@@ -1,5 +1,6 @@
 package awsutils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -16,15 +17,15 @@ public class SearchUtils {
 
     private static String LOG_TAG = SearchUtils.class.getSimpleName();
 
-    public static void searchFaces(String collectionId, String imageName, String bucket, Float threshold, int maxFaces) {
-        IndexFacesResult indexFacesResult = callIndexFaces(collectionId, AmazonRekognitionUtils.getAmazonRekognition(), imageName, bucket);
+    public static void searchFaces(Context context, String collectionId, String imageName, String bucket, Float threshold, int maxFaces) {
+        IndexFacesResult indexFacesResult = callIndexFaces(collectionId, AmazonRekognitionUtils.getAmazonRekognition(context), imageName, bucket);
         String faceId = null;
         if (com.amazonaws.util.CollectionUtils.isNullOrEmpty(indexFacesResult.getFaceRecords())) {
             faceId = indexFacesResult.getFaceRecords().get(0).getFace().getFaceId();
         }
         if (faceId == null) return;
 
-        SearchFacesResult result = callSearchFaces(collectionId, faceId, threshold, maxFaces, AmazonRekognitionUtils.getAmazonRekognition());
+        SearchFacesResult result = callSearchFaces(collectionId, faceId, threshold, maxFaces, AmazonRekognitionUtils.getAmazonRekognition(context));
         for (FaceMatch faceMatch : result.getFaceMatches()) {
             //TODO retornar esse resultado
             Log.i(LOG_TAG, String.format("Face Match: %s", faceMatch.getFace().toString()));
