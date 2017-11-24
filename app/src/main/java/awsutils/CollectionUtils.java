@@ -18,9 +18,9 @@ public class CollectionUtils {
 
     private static final String LOG_TAG = CollectionUtils.class.getSimpleName();
 
-    public static void createCollection(Context context, String collectionId) {
+    public static int createCollection(Context context, String collectionId) {
         CreateCollectionResult result = callCreateCollection(collectionId, AmazonRekognitionUtils.getAmazonRekognition(context));
-        Log.i(LOG_TAG, String.format("CreateCollection, CollectionId: %s, statusCode: %s: " + collectionId, result.getStatusCode()));
+        return result.getStatusCode();
     }
 
     public static void deleteCollection(Context context, String collectionId) {

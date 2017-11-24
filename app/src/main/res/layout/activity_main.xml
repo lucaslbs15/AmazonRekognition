@@ -9,10 +9,51 @@
         tools:context="lucas.bicca.amazonrekognition.activity.MainActivity">
 
         <Button
-            android:id="@+id/activity_main_capture_button"
+            android:id="@+id/activity_main_compare_images_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Labels"/>
+            android:text="@string/activty_main_compare_two_images"/>
 
+        <RelativeLayout
+            android:id="@+id/activity_main_container_with_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_main_compare_images_button">
+
+            <Button
+                android:id="@+id/activity_main_create_collection_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_main_create_collection_id"
+                android:layout_alignParentRight="true"/>
+
+            <EditText
+                android:id="@+id/activity_main_collection_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/activity_main_create_collection_button"/>
+
+            <Button
+                android:id="@+id/activity_main_store_face_button"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/activity_main_store_faces"
+                android:layout_below="@id/activity_main_create_collection_button"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/activity_main_collection_id_to_store"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_main_collection_id"
+                android:layout_toLeftOf="@id/activity_main_store_face_button"/>
+
+            <Button
+                android:layout_below="@id/activity_main_collection_id_to_store"
+                android:id="@+id/activity_main_capture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_main_labels"/>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

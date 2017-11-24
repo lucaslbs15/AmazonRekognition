@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Amazon Rekognition</string>
-    <string name="intent_label_key">intent_label_key</string>
+    <string name="activity_capture_file_name">Nome da imagem</string>
+    <string name="activity_capture_file_name_empty">Insira um nome para a imagem</string>
+    <string name="activity_main_labels">Labels</string>
+    <string name="activity_main_create_collection_id">Criar Coleção</string>
+    <string name="activity_main_collection_id_empty">Insira um ID para a coleção</string>
+    <string name="activity_main_collection_id_ok">Collection ID criado com sucesso</string>
+    <string name="activity_main_collection_id_error">Erro ao criar Collection ID</string>
+    <string name="activity_main_store_faces">Store Faces</string>
+    <string name="activity_compare_two_images_capture">Capturar</string>
+    <string name="activty_main_compare_two_images">Comparar duas imagens</string>
+    <string name="activity_compare_two_images_compare">Comparar imagens</string>
+    <string name="activity_compare_two_images_empty_image">Capture duas imagens para comparar</string>
+    <string name="activity_compare_two_images_left_empty_image">Capture a imagens da esquerda</string>
+    <string name="activity_compare_two_images_right_empty_image">Capture a imagens da direita</string>
+    <string name="activity_compare_two_images_similarity_empty_image">Adicione um nível de similaridade</string>
+    <string name="activity_compare_two_images_open_gallery">Abrir galeria</string>
 </resources>

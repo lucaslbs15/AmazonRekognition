@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="intent_label_value">15</integer>
+    <integer name="intent_store_face_value">15</integer>
 </resources>

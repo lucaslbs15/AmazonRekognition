@@ -12,6 +12,7 @@ import com.amazonaws.services.rekognition.model.SearchFacesByImageRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageResult;
 import com.amazonaws.services.rekognition.model.SearchFacesRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesResult;
+import org.apache.commons.collections4.CollectionUtils;
 
 public class SearchUtils {
 
@@ -20,7 +21,7 @@ public class SearchUtils {
     public static void searchFaces(Context context, String collectionId, String imageName, String bucket, Float threshold, int maxFaces) {
         IndexFacesResult indexFacesResult = callIndexFaces(collectionId, AmazonRekognitionUtils.getAmazonRekognition(context), imageName, bucket);
         String faceId = null;
-        if (com.amazonaws.util.CollectionUtils.isNullOrEmpty(indexFacesResult.getFaceRecords())) {
+        if (CollectionUtils.isNotEmpty(indexFacesResult.getFaceRecords())) {
             faceId = indexFacesResult.getFaceRecords().get(0).getFace().getFaceId();
         }
         if (faceId == null) return;

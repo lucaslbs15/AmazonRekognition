@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_compare_two_image_image_square">200dp</dimen>
+    <dimen name="activity_compare_two_images_container_padding">10dp</dimen>
+    <dimen name="activity_compare_two_images_similarity">80dp</dimen>
+</resources>

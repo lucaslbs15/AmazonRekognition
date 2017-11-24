@@ -8,6 +8,12 @@
         android:layout_height="match_parent"
         tools:context="lucas.bicca.amazonrekognition.activity.CaptureActivity">
 
+        <EditText
+            android:id="@+id/activity_capture_file_name"
+            android:hint="@string/activity_capture_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/activity_capture_button"
             android:layout_width="wrap_content"

@@ -7,25 +7,32 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
 import awsutils.DetectLabelsUtils;
+import awsutils.StoreFaceUtils;
 import lucas.bicca.amazonrekognition.R;
 import lucas.bicca.amazonrekognition.databinding.ActivityCaptureBinding;
 import utils.ImageUtils;
+import utils.NetworkUtils;
 
 public class CaptureActivity extends AppCompatActivity {
 
+    public static final String MY_BUCKET = "UnicredS3Bucket";
     private final String LOG_TAG = CaptureActivity.class.getSimpleName();
 
     private int currentCodeRequest = -1;
+    private String collectionId;
     private ActivityCaptureBinding binding;
     private static final String RESOURCE_DIRECTORY = "android.resource://";
+    private String fileName;
     private String imagePath;
 
     @Override
@@ -34,12 +41,18 @@ public class CaptureActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_capture);
 
         setCurrentCodeRequest(getIntent());
-        setImagePath("image_" + currentCodeRequest, "jpg");
+        setCollectionId(getIntent());
 
         binding.activityCaptureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                fileName = binding.activityCaptureFileName.getText().toString();
+                if (TextUtils.isEmpty(fileName)) {
+                    Toast.makeText(CaptureActivity.this, getString(R.string.activity_capture_file_name_empty), Toast.LENGTH_SHORT).show();
+                } else {
+                    setImagePath(fileName, "jpg");
+                    dispatchTakePictureIntent();
+                }
             }
         });
     }
@@ -50,8 +63,15 @@ public class CaptureActivity extends AppCompatActivity {
 
     private void setCurrentCodeRequest(Intent intent) {
         if (intent == null) return;
-        if (intent.hasExtra(getString(R.string.intent_label_key))) {
-            currentCodeRequest = intent.getIntExtra(getString(R.string.intent_label_key), -1);
+        if (intent.hasExtra(getString(R.string.intent_code_request_key))) {
+            currentCodeRequest = intent.getIntExtra(getString(R.string.intent_code_request_key), -1);
+        }
+    }
+
+    private void setCollectionId(Intent intent) {
+        if (intent == null) return;
+        if (intent.hasExtra(getString(R.string.intent_collection_id))) {
+            collectionId = intent.getStringExtra(getString(R.string.intent_collection_id));
         }
     }
 
@@ -73,7 +93,9 @@ public class CaptureActivity extends AppCompatActivity {
             saveImage(imageByte);
             File file = ImageUtils.getFile(this, imagePath);
             if (file != null) {
+                NetworkUtils.initStricModeThreadPolicy();
                 DetectLabelsUtils.detectLabels(this, file, 10, 77F);
+                StoreFaceUtils.storeFace(this, collectionId, fileName, MY_BUCKET);
             }
         }
     }

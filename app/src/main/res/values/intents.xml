@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intent_code_request_key">intent_label_key</string>
+    <string name="intent_collection_id">intent_collection_id</string>
+</resources>

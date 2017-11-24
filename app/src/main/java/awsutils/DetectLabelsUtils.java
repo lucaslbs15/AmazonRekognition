@@ -43,6 +43,7 @@ public class DetectLabelsUtils {
             }
         } catch (Exception ex) {
             Log.e(LOG_TAG, String.format("detectLabels() - fileName: %s, Exception: %s", file.getName(), ex.getMessage()));
+            ex.printStackTrace();
         }
     }
 
