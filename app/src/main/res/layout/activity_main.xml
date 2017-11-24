@@ -18,14 +18,15 @@
             android:id="@+id/activity_main_container_with_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/activity_main_compare_images_button">
+            android:layout_below="@id/activity_main_compare_images_button"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/activity_main_create_collection_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_main_create_collection_id"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:text="@string/activity_main_create_collection_id"/>
 
             <EditText
                 android:id="@+id/activity_main_collection_id"
@@ -36,10 +37,10 @@
             <Button
                 android:id="@+id/activity_main_store_face_button"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="@string/activity_main_store_faces"
                 android:layout_below="@id/activity_main_create_collection_button"
-                android:layout_height="wrap_content"/>
+                android:text="@string/activity_main_store_faces"/>
 
             <EditText
                 android:id="@+id/activity_main_collection_id_to_store"
@@ -49,10 +50,10 @@
                 android:layout_toLeftOf="@id/activity_main_store_face_button"/>
 
             <Button
-                android:layout_below="@id/activity_main_collection_id_to_store"
                 android:id="@+id/activity_main_capture_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/activity_main_collection_id_to_store"
                 android:text="@string/activity_main_labels"/>
         </RelativeLayout>
     </RelativeLayout>

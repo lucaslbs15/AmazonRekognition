@@ -1,5 +1,7 @@
 package lucas.bicca.amazonrekognition.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.amazonaws.services.rekognition.model.CompareFacesResult;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +45,7 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
     private final String fileNameLeft = "leftImage.png";
     private final String fileNameRight = "rightImage.png";
     private Uri imageUri;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +86,15 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
         binding.activityCompareTwoImagesCompareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.activityCompareTwoImagesResult.setText("");
+                initProgressDialog();
                 initCompareImagesThread();
             }
         });
+    }
+
+    private void initProgressDialog() {
+        progressDialog = ProgressDialog.show(this, "Carregando", "Verificando a similaridade", true, false);
     }
 
     private void initLeftOpenGalleryButtonListener() {
@@ -139,14 +150,32 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
             ByteBuffer byteBufferLeft = ImageUtils.getByteBuffer(this, bitmapLeft);
             ByteBuffer byteBufferRight = ImageUtils.getByteBuffer(this, bitmapRight);
 
-            showCompareFacesResult(CompareUtils.compareImages(this, byteBufferLeft, byteBufferRight, threshold));
+            final CompareFacesResult result = CompareUtils.compareImages(this, byteBufferLeft, byteBufferRight, threshold);
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        progressDialog.dismiss();
+                        showCompareFacesResult(result);
+                    } catch (Exception ex) {
+                        Log.e(LOG_TAG, "showCompareFacesResult() - Exception: " + ex.getMessage());
+                    }
+                }
+            });
         } else {
             Toast.makeText(this, getString(R.string.activity_compare_two_images_empty_image), Toast.LENGTH_LONG).show();
         }
     }
 
-    private void showCompareFacesResult(CompareFacesResult result) {
+    private void showCompareFacesResult(CompareFacesResult result) throws Exception {
+        //showCompareFacesResult: {SourceImageFace: {BoundingBox: {Width: 0.68703705,Height: 0.72038835,Left: 0.12962963,Top: 0.16407767},Confidence: 99.986404},FaceMatches: [{Similarity: 89.0,Face: {BoundingBox: {Width: 0.54684097,Height: 0.54684097,Left: 0.19281046,Top: 0.3769063},Confidence: 99.99546}}]}
         Log.i(LOG_TAG, "showCompareFacesResult: " + result.toString());
+        if (CollectionUtils.isNotEmpty(result.getFaceMatches())) {
+            binding.activityCompareTwoImagesResult.setText(getString(R.string.activity_compare_two_images_result, result.getFaceMatches().get(0).getSimilarity().toString()));
+        } else {
+            binding.activityCompareTwoImagesResult.setText(getString(R.string.activity_compare_two_images_no_similarity));
+        }
     }
 
     private boolean isValidCompare() {

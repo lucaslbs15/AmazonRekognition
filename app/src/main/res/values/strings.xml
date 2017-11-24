@@ -16,4 +16,6 @@
     <string name="activity_compare_two_images_right_empty_image">Capture a imagens da direita</string>
     <string name="activity_compare_two_images_similarity_empty_image">Adicione um nível de similaridade</string>
     <string name="activity_compare_two_images_open_gallery">Abrir galeria</string>
+    <string formatted="true" name="activity_compare_two_images_result">Similaridade: %s</string>
+    <string name="activity_compare_two_images_no_similarity">Sem Similaridade</string>
 </resources>
