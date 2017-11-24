@@ -94,7 +94,7 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
     }
 
     private void initProgressDialog() {
-        progressDialog = ProgressDialog.show(this, "Carregando", "Verificando a similaridade", true, false);
+        progressDialog = ProgressDialog.show(this, getString(R.string.activity_compare_two_images_progress_dialog_title), getString(R.string.activity_compare_two_images_progress_dialog_message), true, false);
     }
 
     private void initLeftOpenGalleryButtonListener() {

@@ -18,4 +18,6 @@
     <string name="activity_compare_two_images_open_gallery">Abrir galeria</string>
     <string formatted="true" name="activity_compare_two_images_result">Similaridade: %s</string>
     <string name="activity_compare_two_images_no_similarity">Sem Similaridade</string>
+    <string name="activity_compare_two_images_progress_dialog_title">Carregando</string>
+    <string name="activity_compare_two_images_progress_dialog_message">Verificando a similaridade</string>
 </resources>
