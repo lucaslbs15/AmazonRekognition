@@ -86,9 +86,13 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
         binding.activityCompareTwoImagesCompareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.activityCompareTwoImagesResult.setText("");
-                initProgressDialog();
-                initCompareImagesThread();
+                if (isValidCompare()) {
+                    binding.activityCompareTwoImagesResult.setText("");
+                    initProgressDialog();
+                    initCompareImagesThread();
+                } else {
+                    Toast.makeText(CompareTwoImagesActivity.this, getString(R.string.activity_compare_two_images_empty_image), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -143,29 +147,25 @@ public class CompareTwoImagesActivity extends AppCompatActivity {
     }
 
     private void compareImages() throws Exception {
-        if (isValidCompare()) {
-            NetworkUtils.initStricModeThreadPolicy();
-            int threshold = Integer.parseInt(binding.activityCompareTwoImagesSimilarity.getText().toString());
+        NetworkUtils.initStricModeThreadPolicy();
+        int threshold = Integer.parseInt(binding.activityCompareTwoImagesSimilarity.getText().toString());
 
-            ByteBuffer byteBufferLeft = ImageUtils.getByteBuffer(this, bitmapLeft);
-            ByteBuffer byteBufferRight = ImageUtils.getByteBuffer(this, bitmapRight);
+        ByteBuffer byteBufferLeft = ImageUtils.getByteBuffer(this, bitmapLeft);
+        ByteBuffer byteBufferRight = ImageUtils.getByteBuffer(this, bitmapRight);
 
-            final CompareFacesResult result = CompareUtils.compareImages(this, byteBufferLeft, byteBufferRight, threshold);
+        final CompareFacesResult result = CompareUtils.compareImages(this, byteBufferLeft, byteBufferRight, threshold);
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        progressDialog.dismiss();
-                        showCompareFacesResult(result);
-                    } catch (Exception ex) {
-                        Log.e(LOG_TAG, "showCompareFacesResult() - Exception: " + ex.getMessage());
-                    }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    progressDialog.dismiss();
+                    showCompareFacesResult(result);
+                } catch (Exception ex) {
+                    Log.e(LOG_TAG, "showCompareFacesResult() - Exception: " + ex.getMessage());
                 }
-            });
-        } else {
-            Toast.makeText(this, getString(R.string.activity_compare_two_images_empty_image), Toast.LENGTH_LONG).show();
-        }
+            }
+        });
     }
 
     private void showCompareFacesResult(CompareFacesResult result) throws Exception {
